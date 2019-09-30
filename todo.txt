@@ -1,0 +1,24 @@
+-------------------------------------------------------------------------------
+ObvForum features
+-------------------------------------------------------------------------------
+
+As a User I want to be able to view list of Topics
+so that I can find what interests me
+
+As a User U want to be able to see a detail of a Topics with all the Messages
+so I can read the whole Discussion
+
+As a User I want to be able register
+so that the systems recognizes me
+
+As a Registered User I want to be able login
+so that I can post messages
+
+As a Registered User I want to be able to create Topic
+so that I can start a discussion
+
+As a Registered User I want to be able to add messages to Topic
+so that I can contribute to discussion
+
+As a Registered User I wan to be able to reply to Messages within a Topic
+so that the Author knows I am addressing him directly
