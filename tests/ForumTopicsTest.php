@@ -1,6 +1,6 @@
 <?php
 
-class ForumTopicsTests extends PHPUnit_Framework_TestCase
+class ForumTopicsTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateTopic_validData_returnsCreatedTopic()
     {
