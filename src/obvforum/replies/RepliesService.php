@@ -50,7 +50,7 @@ class RepliesService
      * @param string $topicId
      * @return Reply[]
      */
-    public function getAllByTopic(string $topicId) : array
+    public function getAllForTopic(string $topicId) : array
     {
         return $this->storage->load()
             ->filter(array(

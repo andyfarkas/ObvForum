@@ -78,6 +78,6 @@ class ObvForum
      */
     public function getRepliesForTopic(string $topicId) : array
     {
-        return $this->repliesService->getAllByTopic($topicId);
+        return $this->repliesService->getAllForTopic($topicId);
     }
 }
