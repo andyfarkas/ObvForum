@@ -4,10 +4,8 @@ namespace Obv;
 
 use Obv\ObvForum\Categories\CategoriesService;
 use Obv\ObvForum\Categories\Category;
-use Obv\Storage\InMemoryStorage;
 use Obv\ObvForum\Topics\Topic;
 use Obv\ObvForum\Topics\TopicsService;
-use Obv\Storage\Storage;
 
 class ObvForum
 {
@@ -15,12 +13,12 @@ class ObvForum
     private $topicsService;
 
     public function __construct(
-        Storage $categoriesStorage,
-        Storage $topicsStorage
+        CategoriesService $categoriesService,
+        TopicsService $topicsService
     )
     {
-        $this->categoriesService = new CategoriesService($categoriesStorage);
-        $this->topicsService = new TopicsService($topicsStorage, $this->categoriesService);
+        $this->categoriesService = $categoriesService;
+        $this->topicsService = $topicsService;
     }
 
     public function createCategory(string $name) : Category
@@ -51,5 +49,13 @@ class ObvForum
     public function findTopicById(string $id) : Topic
     {
         return $this->topicsService->findById($id);
+    }
+
+    /**
+     * @return Topic[]
+     */
+    public function getTopicsInCategory(string $categoryId) : array
+    {
+        return $this->topicsService->getAllByCategoryId($categoryId);
     }
 }

@@ -5,6 +5,7 @@ use Obv\ObvForum\Categories\Category;
 use Obv\ObvForum\Categories\CategoryNotFoundException;
 use Obv\ObvForum\Topics\Topic;
 use Obv\ObvForum\Topics\TopicNotFoundException;
+use Obv\Storage\InMemoryDataMapper;
 use Obv\Storage\InMemoryStorage;
 use PHPUnit\Framework\TestCase;
 
@@ -43,14 +44,33 @@ class ForumTopicsTest extends TestCase
         $app->findTopicById("this id does not exist");
     }
 
+    public function testGetAllTopicsByCategory_categoryWithMultipleTopics_returnsArrayOfThoseTopics()
+    {
+        $app = $this->createObvForum();
+        $category = $app->createCategory("PHP Development");
+        $javaCategory = $app->createCategory("Java Development");
+        $app->createTopic('How to create PHP forum software?', 'Keep watching the stream.', $category);
+        $app->createTopic('Java Streams and Optional', '', $javaCategory);
+        $app->createTopic('Do you like PHP?', 'Is PHP a great language. Is it better than Java?', $category);
+        $result = $app->getTopicsInCategory($category->getId());
+        $this->assertCount(2, $result);
+    }
+
     /**
      * @return ObvForum
      */
     private function createObvForum(): ObvForum
     {
-        return new ObvForum(
-            new InMemoryStorage(),
+        $categoriesService = new ObvForum\Categories\CategoriesService(
             new InMemoryStorage()
+        );
+        return new ObvForum(
+            $categoriesService,
+            new ObvForum\Topics\TopicsService(
+                new InMemoryStorage(),
+                $categoriesService,
+                new InMemoryDataMapper()
+            )
         );
     }
 }

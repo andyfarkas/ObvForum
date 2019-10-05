@@ -1,8 +1,9 @@
 <?php
 
+use Obv\ObvForum;
 use Obv\ObvForum\Categories\Category;
 use Obv\ObvForum\Categories\CategoryNotFoundException;
-use Obv\ObvForum;
+use Obv\Storage\InMemoryDataMapper;
 use Obv\Storage\InMemoryStorage;
 use PHPUnit\Framework\TestCase;
 
@@ -59,11 +60,18 @@ class ForumCategoriesTest extends TestCase
     /**
      * @return ObvForum
      */
-    public function createObvForum(): ObvForum
+    private function createObvForum(): ObvForum
     {
-        return new ObvForum(
-            new InMemoryStorage(),
+        $categoriesService = new ObvForum\Categories\CategoriesService(
             new InMemoryStorage()
+        );
+        return new ObvForum(
+            $categoriesService,
+            new ObvForum\Topics\TopicsService(
+                new InMemoryStorage(),
+                $categoriesService,
+                new InMemoryDataMapper()
+            )
         );
     }
 

@@ -5,17 +5,20 @@ namespace Obv\ObvForum\Topics;
 use Obv\ObvForum\Categories\CategoriesService;
 use Obv\ObvForum\Categories\Category;
 use Obv\ObvForum\Categories\CategoryNotFoundException;
+use Obv\Storage\DataMapper;
 use Obv\Storage\Storage;
 
 class TopicsService
 {
     private $categoriesService;
-
     private $storage;
-    public function __construct(Storage $storage, CategoriesService $categoriesService)
+    private $dataMapper;
+
+    public function __construct(Storage $storage, CategoriesService $categoriesService, DataMapper $mapper)
     {
         $this->storage = $storage;
         $this->categoriesService = $categoriesService;
+        $this->dataMapper = $mapper;
     }
 
     public function create(string $title, string $description, Category $category) : Topic
@@ -56,11 +59,32 @@ class TopicsService
                             $data['_id'],
                             $data['_title'],
                             $data['_text'],
-                            $data['_createdAt'],
+                            $this->dataMapper->asDate($data['_createdAt']),
                             $data['_createdBy'],
                             $data['_category']
                         );
                     })->findOne()
                     ->elseThrow(TopicNotFoundException::class);
+    }
+
+    /**
+     * @param string $categoryId
+     * @return Topic[]
+     */
+    public function getAllByCategoryId(string $categoryId) : array
+    {
+        return $this->storage->load()
+            ->filter(array(
+                '_category' => $categoryId
+            ))->map(function(array $data){
+                return new Topic(
+                    $data['_id'],
+                    $data['_title'],
+                    $data['_text'],
+                    $this->dataMapper->asDate($data['_createdAt']),
+                    $data['_createdBy'],
+                    $data['_category']
+                );
+            })->findAll();
     }
 }
