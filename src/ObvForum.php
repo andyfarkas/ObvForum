@@ -41,9 +41,9 @@ class ObvForum
         return $this->categoriesService->findAll();
     }
 
-    public function createTopic(string $title, string $text, Category $category) : Topic
+    public function createTopic(string $title, string $text, string $categoryId) : Topic
     {
-        return $this->topicsService->create($title, $text, $category);
+        return $this->topicsService->create($title, $text, $categoryId);
     }
 
     public function findTopicById(string $id) : Topic

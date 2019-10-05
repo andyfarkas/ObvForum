@@ -21,9 +21,9 @@ class TopicsService
         $this->dataMapper = $mapper;
     }
 
-    public function create(string $title, string $description, Category $category) : Topic
+    public function create(string $title, string $description, string $categoryId) : Topic
     {
-        if(!$this->categoriesService->exists($category))
+        if(!$this->categoriesService->exists($categoryId))
         {
             throw new CategoryNotFoundException("Could not create topic for category that does not exist.");
         }
@@ -34,7 +34,7 @@ class TopicsService
             $description,
             new \DateTime(),
             'anonymous',
-            $category->getId()
+            $categoryId
         );
 
         $this->storage->store(array(

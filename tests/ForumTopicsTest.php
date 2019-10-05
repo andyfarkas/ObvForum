@@ -15,7 +15,7 @@ class ForumTopicsTest extends TestCase
     {
         $app = $this->createObvForum();
         $category = $app->createCategory("PHP Development");
-        $topic = $app->createTopic("A new topic", "Some description", $category);
+        $topic = $app->createTopic("A new topic", "Some description", $category->getId());
         $this->assertInstanceOf(Topic::class, $topic);
     }
 
@@ -25,14 +25,14 @@ class ForumTopicsTest extends TestCase
         $category = new Category("some id", "This category does not exist");
 
         $this->expectException(CategoryNotFoundException::class);
-        $app->createTopic("A new topic", "Some description", $category);
+        $app->createTopic("A new topic", "Some description", $category->getId());
     }
 
     public function testFindTopicById_existingTopic_returnsThatTopic()
     {
         $app = $this->createObvForum();
         $category = $app->createCategory("PHP Development");
-        $topic = $app->createTopic("A new topic", "Some description", $category);
+        $topic = $app->createTopic("A new topic", "Some description", $category->getId());
         $retrievedTopic = $app->findTopicById($topic->getId());
         $this->assertEquals($topic, $retrievedTopic);
     }
@@ -49,9 +49,9 @@ class ForumTopicsTest extends TestCase
         $app = $this->createObvForum();
         $category = $app->createCategory("PHP Development");
         $javaCategory = $app->createCategory("Java Development");
-        $app->createTopic('How to create PHP forum software?', 'Keep watching the stream.', $category);
-        $app->createTopic('Java Streams and Optional', '', $javaCategory);
-        $app->createTopic('Do you like PHP?', 'Is PHP a great language. Is it better than Java?', $category);
+        $app->createTopic('How to create PHP forum software?', 'Keep watching the stream.', $category->getId());
+        $app->createTopic('Java Streams and Optional', '', $javaCategory->getId());
+        $app->createTopic('Do you like PHP?', 'Is PHP a great language. Is it better than Java?', $category->getId());
         $result = $app->getTopicsInCategory($category->getId());
         $this->assertCount(2, $result);
     }

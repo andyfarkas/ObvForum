@@ -43,8 +43,7 @@ if (isset($_POST['btnCreateTopic']))
         header('Location: /');
     }
 
-    $category = $app->findCategoryById($_POST['categoryId']);
-    $app->createTopic($_POST['topicTitle'], $_POST['topicText'], $category);
+    $app->createTopic($_POST['topicTitle'], $_POST['topicText'], $_POST['categoryId']);
     header('Location: /');
 }
 

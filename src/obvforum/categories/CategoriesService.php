@@ -46,11 +46,11 @@ class CategoriesService
         ));
     }
 
-    public function exists(Category $category)
+    public function exists(string $categoryId)
     {
         $result = $this->storage->load()
                         ->filter(array(
-                            '_id' => $category->getId(),
+                            '_id' => $categoryId,
                         ))->findAll();
 
         return !empty($result);
