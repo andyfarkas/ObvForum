@@ -51,9 +51,9 @@ class TopicsService
     public function findById(string $id) : Topic
     {
         return $this->storage->load()
-                    ->filter(function(array $item) use($id){
-                        return $item['_id'] == $id;
-                    })->map(function(array $data){
+                    ->filter(array(
+                        '_id' => $id,
+                    ))->map(function(array $data){
                         return new Topic(
                             $data['_id'],
                             $data['_title'],

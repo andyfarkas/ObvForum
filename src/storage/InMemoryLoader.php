@@ -6,7 +6,7 @@ class InMemoryLoader implements Loader
 {
     private $data;
 
-    private $filter;
+    private $conditions;
 
     private $mapper;
 
@@ -29,20 +29,15 @@ class InMemoryLoader implements Loader
         return $this;
     }
 
-    public function filter(\Closure $filter) : Loader
+    public function filter(array $conditions) : Loader
     {
-        $this->filter = $filter;
+        $this->conditions = $conditions;
         return $this;
     }
 
     public function elseThrow(string $exception)
     {
-        $result = $this->data;
-
-        if ($this->filter != null)
-        {
-            $result = array_filter($this->data, $this->filter);
-        }
+        $result = $this->getFilteredData();
 
         if ($this->mapper != null)
         {
@@ -64,12 +59,7 @@ class InMemoryLoader implements Loader
 
     public function findAll()
     {
-        $result = $this->data;
-
-        if ($this->filter != null)
-        {
-            $result = array_filter($this->data, $this->filter);
-        }
+        $result = $this->getFilteredData();
 
         if ($this->mapper != null)
         {
@@ -77,5 +67,25 @@ class InMemoryLoader implements Loader
         }
 
         return $result;
+    }
+
+    private function getFilteredData() : array
+    {
+        if ($this->conditions != null)
+        {
+            return array_filter($this->data, function($item) {
+                foreach ($this->conditions as $field => $value)
+                {
+                    if ($item[$field] != $value)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+        }
+
+        return $this->data;
     }
 }
