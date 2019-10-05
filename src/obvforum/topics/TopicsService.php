@@ -1,11 +1,11 @@
 <?php
 
-namespace ObvForum\Topics;
+namespace Obv\ObvForum\Topics;
 
-use ObvForum\Categories\CategoriesService;
-use ObvForum\Categories\Category;
-use ObvForum\Categories\CategoryNotFoundException;
-use ObvForum\Storage\Storage;
+use Obv\ObvForum\Categories\CategoriesService;
+use Obv\ObvForum\Categories\Category;
+use Obv\ObvForum\Categories\CategoryNotFoundException;
+use Obv\Storage\Storage;
 
 class TopicsService
 {

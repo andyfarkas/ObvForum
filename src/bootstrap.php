@@ -8,7 +8,7 @@ spl_autoload_register(function(string $classname) {
         return;
     }
     
-    if (strcasecmp($pathParts[0], 'ObvForum') != 0)
+    if (strcasecmp($pathParts[0], 'Obv') != 0)
     {
         return;
     }

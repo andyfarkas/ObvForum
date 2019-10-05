@@ -1,6 +1,6 @@
 <?php
 
-namespace ObvForum\Categories;
+namespace Obv\ObvForum\Categories;
 
 class Category
 {

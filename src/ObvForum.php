@@ -1,12 +1,12 @@
 <?php
 
-namespace ObvForum;
+namespace Obv;
 
-use ObvForum\Categories\CategoriesService;
-use ObvForum\Categories\Category;
-use ObvForum\Storage\InMemoryStorage;
-use ObvForum\Topics\Topic;
-use ObvForum\Topics\TopicsService;
+use Obv\ObvForum\Categories\CategoriesService;
+use Obv\ObvForum\Categories\Category;
+use Obv\Storage\InMemoryStorage;
+use Obv\ObvForum\Topics\Topic;
+use Obv\ObvForum\Topics\TopicsService;
 
 class ObvForum
 {

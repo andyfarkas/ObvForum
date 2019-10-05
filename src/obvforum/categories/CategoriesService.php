@@ -1,8 +1,8 @@
 <?php
 
-namespace ObvForum\Categories;
+namespace Obv\ObvForum\Categories;
 
-use ObvForum\Storage\Storage;
+use Obv\Storage\Storage;
 
 class CategoriesService
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace ObvForum\Topics;
+namespace Obv\ObvForum\Topics;
 
 class TopicNotFoundException extends \Exception
 {
