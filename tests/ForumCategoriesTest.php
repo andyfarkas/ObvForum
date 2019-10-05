@@ -46,6 +46,16 @@ class ForumCategoriesTest extends TestCase
         $this->assertEquals($changedCategory, $retrievedCategory);
     }
 
+    public function testGetAllCategories_multipleCategoriesCreated_returnsArrayOfThoseCategories()
+    {
+        $app = $this->createObvForum();
+        $javaCategory = $app->createCategory("Java Development");
+        $phpCategory = $app->createCategory("PHP Development");
+        $result = $app->getAllCategories();
+
+        $this->assertCount(2, $result);
+    }
+
     /**
      * @return ObvForum
      */

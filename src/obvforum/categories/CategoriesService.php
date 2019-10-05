@@ -56,4 +56,15 @@ class CategoriesService
         return !empty($result);
     }
 
+    /**
+     * @return Category[]
+     */
+    public function findAll() : array
+    {
+        return $this->storage->load()
+            ->map(function(array $data) {
+                return new Category($data['_id'], $data['_name']);
+            })->findAll();
+    }
+
 }

@@ -38,6 +38,11 @@ class ObvForum
         $this->categoriesService->update($changedCategory);
     }
 
+    public function getAllCategories() : array
+    {
+        return $this->categoriesService->findAll();
+    }
+
     public function createTopic(string $title, string $text, Category $category) : Topic
     {
         return $this->topicsService->create($title, $text, $category);

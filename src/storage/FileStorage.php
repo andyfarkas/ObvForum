@@ -23,7 +23,7 @@ class FileStorage implements Storage
     public function load(): Loader
     {
         $contents = file_get_contents($this->file);
-        $storage = json_decode($contents);
+        $storage = json_decode($contents, true);
         return new InMemoryLoader($storage);
     }
 
