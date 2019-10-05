@@ -7,16 +7,20 @@ use Obv\ObvForum\Categories\Category;
 use Obv\Storage\InMemoryStorage;
 use Obv\ObvForum\Topics\Topic;
 use Obv\ObvForum\Topics\TopicsService;
+use Obv\Storage\Storage;
 
 class ObvForum
 {
     private $categoriesService;
     private $topicsService;
 
-    public function __construct()
+    public function __construct(
+        Storage $categoriesStorage,
+        Storage $topicsStorage
+    )
     {
-        $this->categoriesService = new CategoriesService(new InMemoryStorage());
-        $this->topicsService = new TopicsService(new InMemoryStorage(), $this->categoriesService);
+        $this->categoriesService = new CategoriesService($categoriesStorage);
+        $this->topicsService = new TopicsService($topicsStorage, $this->categoriesService);
     }
 
     public function createCategory(string $name) : Category

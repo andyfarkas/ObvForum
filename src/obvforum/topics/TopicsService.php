@@ -12,8 +12,6 @@ class TopicsService
     private $categoriesService;
 
     private $storage;
-    private $currentIdentifier = 1;
-
     public function __construct(Storage $storage, CategoriesService $categoriesService)
     {
         $this->storage = $storage;
@@ -28,7 +26,7 @@ class TopicsService
         }
 
         $topic = new Topic(
-            $this->currentIdentifier++,
+            uniqid(),
             $title,
             $description,
             new \DateTime(),

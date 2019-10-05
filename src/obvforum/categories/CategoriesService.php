@@ -7,7 +7,6 @@ use Obv\Storage\Storage;
 class CategoriesService
 {
     private $storage;
-    private $currentIdentifier = 1;
 
     public function __construct(Storage $storage)
     {
@@ -16,7 +15,7 @@ class CategoriesService
 
     public function create(string $name) : Category
     {
-        $category = new Category($this->currentIdentifier++, $name);
+        $category = new Category(uniqid(), $name);
         $this->storage->store(array(
             '_id' => $category->getId(),
             '_name' => $category->getName(),
