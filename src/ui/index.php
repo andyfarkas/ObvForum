@@ -2,20 +2,28 @@
 
 use Obv\ObvForum;
 use Obv\ObvForum\Categories\CategoriesService;
+use Obv\ObvForum\Replies\RepliesService;
 use Obv\Storage\FileDataMapper;
 use Obv\Storage\FileStorage;
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 $categoriesService = new CategoriesService(new FileStorage(__DIR__ . DIRECTORY_SEPARATOR . 'categories.json'));
+$topicsService = new ObvForum\Topics\TopicsService(
+    new FileStorage(__DIR__ . DIRECTORY_SEPARATOR . 'topics.json'),
+    $categoriesService,
+    new FileDataMapper()
+);
 
+$repliesService = new RepliesService(
+    new FileStorage(__DIR__ . DIRECTORY_SEPARATOR . 'replies.json'),
+    new FileDataMapper(),
+    $topicsService
+);
 $app = new ObvForum(
     $categoriesService,
-    new ObvForum\Topics\TopicsService(
-        new FileStorage(__DIR__ . DIRECTORY_SEPARATOR . 'topics.json'),
-        $categoriesService,
-        new FileDataMapper()
-    )
+    $topicsService,
+    $repliesService
 );
 
 if (isset($_POST['btnCreateCategory']))

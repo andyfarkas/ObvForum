@@ -1,0 +1,1 @@
+Vote system? vote on a thread/topic. Enable users to moderate their own topic by down voting (replies of) bad users.

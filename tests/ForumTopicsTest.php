@@ -3,8 +3,10 @@
 use Obv\ObvForum;
 use Obv\ObvForum\Categories\Category;
 use Obv\ObvForum\Categories\CategoryNotFoundException;
+use Obv\ObvForum\Replies\RepliesService;
 use Obv\ObvForum\Topics\Topic;
 use Obv\ObvForum\Topics\TopicNotFoundException;
+use Obv\ObvForum\Topics\TopicsService;
 use Obv\Storage\InMemoryDataMapper;
 use Obv\Storage\InMemoryStorage;
 use PHPUnit\Framework\TestCase;
@@ -64,13 +66,20 @@ class ForumTopicsTest extends TestCase
         $categoriesService = new ObvForum\Categories\CategoriesService(
             new InMemoryStorage()
         );
+        $topicsService = new ObvForum\Topics\TopicsService(
+            new InMemoryStorage(),
+            $categoriesService,
+            new InMemoryDataMapper()
+        );
+        $repliesService = new RepliesService(
+            new InMemoryStorage(),
+            new InMemoryDataMapper(),
+            $topicsService
+        );
         return new ObvForum(
             $categoriesService,
-            new ObvForum\Topics\TopicsService(
-                new InMemoryStorage(),
-                $categoriesService,
-                new InMemoryDataMapper()
-            )
+            $topicsService,
+            $repliesService
         );
     }
 }

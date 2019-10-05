@@ -3,7 +3,6 @@
 namespace Obv\ObvForum\Topics;
 
 use Obv\ObvForum\Categories\CategoriesService;
-use Obv\ObvForum\Categories\Category;
 use Obv\ObvForum\Categories\CategoryNotFoundException;
 use Obv\Storage\DataMapper;
 use Obv\Storage\Storage;
@@ -86,5 +85,15 @@ class TopicsService
                     $data['_category']
                 );
             })->findAll();
+    }
+
+    public function exists(string $topicId) : bool
+    {
+        $result = $this->storage->load()
+            ->filter(array(
+                '_id' => $topicId
+            ))->findAll();
+
+        return !empty($result);
     }
 }
