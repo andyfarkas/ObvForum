@@ -1,5 +1,6 @@
 <?php
 
+use Obv\Http\Http;
 use Obv\ObvForum;
 use Obv\ObvForum\Categories\CategoriesService;
 use Obv\ObvForum\Replies\RepliesService;

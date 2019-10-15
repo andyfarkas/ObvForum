@@ -2,9 +2,10 @@
 
 namespace Obv\Storage\File;
 
-use Obv\Storage\InMemoryLoader;
+use Obv\Storage\InMemory\InMemoryLoader;
 use Obv\Storage\Loader;
 use Obv\Storage\Storage;
+use PHPUnit\phpDocumentor\Reflection\Types\This;
 
 class FileStorage implements Storage
 {
@@ -17,8 +18,13 @@ class FileStorage implements Storage
 
     public function store(array $data)
     {
-        $contents = file_get_contents($this->file);
-        $storage = json_decode($contents);
+        $storage = [];
+        if (is_file($this->file))
+        {
+            $contents = file_get_contents($this->file);
+            $storage = json_decode($contents);
+        }
+
         $storage[] = $data;
         $encoded = json_encode($storage);
         file_put_contents($this->file, $encoded);
@@ -26,8 +32,13 @@ class FileStorage implements Storage
 
     public function load(): Loader
     {
-        $contents = file_get_contents($this->file);
-        $storage = json_decode($contents, true);
+        $storage = [];
+        if (is_file($this->file))
+        {
+            $contents = file_get_contents($this->file);
+            $storage = json_decode($contents, true);
+        }
+
         return new InMemoryLoader($storage);
     }
 

@@ -1,3 +1,3 @@
-3, Refactor the structure of storage folder/package
-4, Implement basic web request/response kind of framework (routing and helper functions/encapsulation of input data)
-5, Vote system? vote on a thread/topic. Enable users to moderate their own topic by down voting (replies of) bad users.
+- Support dynamic URIs in HTTP module (such as /api/forum/categories/123456/topics)
+- Users module -> registration + authentication
+- Vote system? vote on a thread/topic. Enable users to moderate their own topic by down voting (replies of) bad users.
