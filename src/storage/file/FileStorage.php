@@ -1,6 +1,10 @@
 <?php
 
-namespace Obv\Storage;
+namespace Obv\Storage\File;
+
+use Obv\Storage\InMemoryLoader;
+use Obv\Storage\Loader;
+use Obv\Storage\Storage;
 
 class FileStorage implements Storage
 {

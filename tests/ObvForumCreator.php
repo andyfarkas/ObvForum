@@ -2,8 +2,8 @@
 
 use Obv\ObvForum;
 use Obv\ObvForum\Replies\RepliesService;
-use Obv\Storage\InMemoryDataMapper;
-use Obv\Storage\InMemoryStorage;
+use Obv\Storage\InMemory\InMemoryDataMapper;
+use Obv\Storage\InMemory\InMemoryStorage;
 
 class ObvForumCreator
 {

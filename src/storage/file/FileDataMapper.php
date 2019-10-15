@@ -1,6 +1,8 @@
 <?php
 
-namespace Obv\Storage;
+namespace Obv\Storage\File;
+
+use Obv\Storage\DataMapper;
 
 class FileDataMapper implements DataMapper
 {

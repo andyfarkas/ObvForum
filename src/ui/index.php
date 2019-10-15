@@ -3,8 +3,8 @@
 use Obv\ObvForum;
 use Obv\ObvForum\Categories\CategoriesService;
 use Obv\ObvForum\Replies\RepliesService;
-use Obv\Storage\FileDataMapper;
-use Obv\Storage\FileStorage;
+use Obv\Storage\File\FileDataMapper;
+use Obv\Storage\File\FileStorage;
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 

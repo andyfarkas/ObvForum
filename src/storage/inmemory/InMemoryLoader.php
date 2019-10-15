@@ -1,6 +1,8 @@
 <?php
 
-namespace Obv\Storage;
+namespace Obv\Storage\InMemory;
+
+use Obv\Storage\Loader;
 
 class InMemoryLoader implements Loader
 {

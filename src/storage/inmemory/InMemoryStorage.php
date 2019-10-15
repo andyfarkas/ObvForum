@@ -1,6 +1,9 @@
 <?php
 
-namespace Obv\Storage;
+namespace Obv\Storage\InMemory;
+
+use Obv\Storage\Loader;
+use Obv\Storage\Storage;
 
 class InMemoryStorage implements Storage
 {
