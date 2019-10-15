@@ -5,12 +5,10 @@ namespace Obv\Storage;
 class InMemoryLoader implements Loader
 {
     private $data;
-
     private $conditions;
-
     private $mapper;
-
     private $isFindOne = false;
+    private $orderBy;
 
     public function __construct(array $data)
     {
@@ -71,9 +69,10 @@ class InMemoryLoader implements Loader
 
     private function getFilteredData() : array
     {
+        $result = $this->data;
         if ($this->conditions != null)
         {
-            return array_filter($this->data, function($item) {
+            $result = array_filter($this->data, function($item) {
                 foreach ($this->conditions as $field => $value)
                 {
                     if ($item[$field] != $value)
@@ -86,6 +85,28 @@ class InMemoryLoader implements Loader
             });
         }
 
-        return $this->data;
+        if ($this->orderBy != null)
+        {
+            $field = array_keys($this->orderBy)[0];
+            $direction = array_values($this->orderBy)[0];
+            usort($result, function(array $first, array $second) use ($field, $direction) {
+                if ($first[$field] instanceof \DateTime)
+                {
+                    $result = $first[$field]->diff($second[$field])->invert > 0 ? -1 : 1;
+                    $result = strcasecmp($direction, 'desc') != 0 ? $result * -1 : $result;
+                    return $result;
+                }
+
+                return $first[$field] - $second[$field];
+            });
+        }
+
+        return $result;
+    }
+
+    public function orderBy(array $orderBy): Loader
+    {
+        $this->orderBy = $orderBy;
+        return $this;
     }
 }

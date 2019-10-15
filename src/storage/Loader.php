@@ -9,5 +9,6 @@ interface Loader
     public function map(\Closure $mapper) : self;
     public function filter(array $conditions) : self;
     public function elseThrow(string $exception);
+    public function orderBy(array $orderBy) : self;
 }
 

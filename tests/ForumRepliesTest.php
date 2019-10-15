@@ -55,4 +55,23 @@ class ForumRepliesTest extends TestCase
         $result = $app->getRepliesForTopic($topic->getId());
         $this->assertCount(2, $result);
     }
+
+    public function testGetAllRepliesForTopic_multipleRepliesExists_returnsArrayOfThoseRepliesOrderByDate()
+    {
+        $app = ObvForumCreator::createObvForum();
+        $category = $app->createCategory("PHP Development");
+        $topic = $app->createTopic('Getting back to PHP after 3 years', '', $category->getId());
+        $app->createReplyToTopic(
+            'Welcome back to PHP bro!',
+            'anonymous_identifier',
+            $topic->getId()
+        );
+        $lastReply = $app->createReplyToTopic(
+            'Go back java :-D kappa.',
+            'anonymous_identifier',
+            $topic->getId()
+        );
+        $result = $app->getRepliesForTopic($topic->getId());
+        $this->assertEquals($lastReply, $result[0]);
+    }
 }

@@ -55,6 +55,8 @@ class RepliesService
         return $this->storage->load()
             ->filter(array(
                 '_topic' => $topicId,
+            ))->orderBy(array(
+                '_createdAt' => 'desc',
             ))->map(function (array $data){
                 return new Reply(
                     $data['_id'],
